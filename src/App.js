@@ -11,6 +11,12 @@ import Manageuser from './components/admin/Manageuser';
 import AdminProfile from './components/admin/Profile';
 import UserProfile from './components/user/Profile';
 import User from './components/user';
+import Home from './components/main/Home';
+import Listlocations from './components/main/Listlocations';
+import Packagingmaterial from './components/main/Packagingmaterial';
+import ResetPassword from './components/main/ResetPassword';
+import Viewlocation from './components/main/Viewlocation';
+import ContactUs from './components/main/ContactUs';
 
 function App() {
   return (
@@ -20,7 +26,16 @@ function App() {
 
         <Route element={<Main/>} path="main">
           <Route path="login" element={<Login/>}/>
+          <Route path="home" element={<Home/>}/>
+          <Route path="listlocations" element={<Listlocations/>}/>
+          <Route path="packagingmaterial" element={<Packagingmaterial/>}/>
+          <Route path="resetpassword" element={<ResetPassword/>}/>
+          <Route path="viewlocation" element={<Viewlocation/>}/>
+          <Route path="contactus" element={<ContactUs/>}/>
           <Route path="signup" element={<Signup/>}/>
+          
+
+
         </Route>
 
         <Route element={<Admin/>}path="admin">
@@ -35,6 +50,8 @@ function App() {
 
         </Route>
       </Routes>
+
+      
 
       </BrowserRouter>
       
