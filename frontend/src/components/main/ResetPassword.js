@@ -31,7 +31,7 @@ const ResetPassword = () => {
   className="vh-100 bg-image"
   style={{
     backgroundImage:
-      'url("https://img.freepik.com/premium-photo/concept-contact-us-blank-wooden-cubes-square-dice-with-symbol-email-telephone-address-placed-wood-background_44868-1254.jpg?w=2000")'
+      'url("https://adamtheautomator.com/wp-content/uploads/2021/02/How-to-Reset-a-Windows-10-Password-with-a-Command-Prompt.jpg")'
   }}
 >
   <div className="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -59,18 +59,7 @@ const ResetPassword = () => {
                             className="mx-1 mx-md-4"
                           >
               
-                <div className="form-outline mb-4">
-                <input
-                                  value={values.name}
-                                  onChange={handleChange}
-                                  type="text"
-                                  id="name"
-                                  className="form-control"
-                                />
-                  <label className="form-label" htmlFor="form3Example1cg">
-                     Name
-                  </label>
-                </div>
+                
                 <div className="form-outline mb-4">
                 <input
                                   value={values.email}
@@ -79,7 +68,7 @@ const ResetPassword = () => {
                                   id="email"
                                   className="form-control"
                                 />
-                  <label className="form-label" htmlFor="form3Example3cg">
+                  <label className="form-label" >
                      Email
                   </label>
                 </div>
@@ -87,39 +76,28 @@ const ResetPassword = () => {
                 <input
                                   value={values.subject}
                                   onChange={handleChange}
-                                  type="subject"
-                                  id="subject"
+                                  type="password"
+                                  id="newpassword"
                                   className="form-control"
                                 />
                   <label className="form-label" htmlFor="form3Example4cg">
-                    Subject
+                    New Password
                   </label>
                 </div>
                 <div className="form-outline mb-4">
                 <input
                                   value={values.message}
                                   onChange={handleChange}
-                                  type="message"
-                                  id="message"
+                                  type="password"
+                                  id="confirmpassword"
                                   className="form-control"
                                 />
                   
                   <label className="form-label" htmlFor="form3Example4cdg">
-                    Message
+                  Confirm Password
                   </label>
                 </div>
-                <div className="form-check d-flex justify-content-center mb-5">
-                  <input
-                    className="form-check-input me-2"
-                    type="checkbox"
-                    defaultValue=""
-                    id="form2Example3cg"
-                  />
-                  <label className="form-check-label" htmlFor="form2Example3g">
-                   Send me copy{" "}
-                    
-                  </label>
-                </div>
+                
                 <div className="d-flex justify-content-center">
                   <button
                     type="button"
