@@ -6,6 +6,7 @@ import { TextField } from "@mui/material";
 
 const Addvideo = () => {
     const navigate = useNavigate();
+    const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('user')));
     const [selFile, setSelFile] = useState("")
     const userSubmit = async (formdata) => {
       console.log(formdata);
@@ -28,7 +29,7 @@ const Addvideo = () => {
             title: "Well Done👍",
             text: "You have done a wonderful job!",
           }).then(() => {
-            navigate('/managevideo');
+            navigate('/user/managevideo');
           })
         })
       } else {
@@ -66,8 +67,8 @@ const Addvideo = () => {
                 <Formik
                   initialValues={{
                     title: "",
-                    description: "",
-                    uploadedBy:"",
+                    
+                    uploadedBy:currentUser._id,
                     file:"",
                     createdAt: Date,
                   }}
@@ -96,18 +97,7 @@ const Addvideo = () => {
                       </div>
 
 
-                      <div className="form-outline mb-4">
-                      <TextField
-                          value={values.description}
-                          onChange={handleChange}
-                          id="description"
-                          sx={{ mt: 5 }}
-                          fullWidth
-                          label="DESCRIPTION"
-                          type="text"
-                          className="form-control"
-                        />
-                        </div>
+                      
 
                      <div className="form-outline mb-4">
                       <TextField

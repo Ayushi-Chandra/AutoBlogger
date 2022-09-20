@@ -7,7 +7,7 @@ const ContactUs = () => {
     const userSubmit = async (formdata) => {
         console.log(formdata);
     
-        const response = await fetch("http://localhost:5000/user/add", {
+        const response = await fetch("http://localhost:5000/user/authenticate", {
           method: "POST",
           body: JSON.stringify(formdata), //converting javascript object to json
           headers: {

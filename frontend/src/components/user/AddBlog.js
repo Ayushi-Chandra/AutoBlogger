@@ -2,13 +2,15 @@ import React ,{useState}from 'react'
 import { Formik } from 'formik';
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
-import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {  TextField } from "@mui/material";
 import MDEditor from '@uiw/react-md-editor';
 
 const AddBlog = () => {
   const navigate = useNavigate();
   const [selFile, setSelFile,value,setValue] = useState("")
+  const [blogData, setBlogData] = useState("");
     const userSubmit = async (formdata) => {
+      formdata.thumbnail = selFile;
       console.log(formdata);
   
       const response = await fetch("http://localhost:5000/blog/add", {
@@ -29,7 +31,7 @@ const AddBlog = () => {
             title: "Well Done👍",
             text: "You have done a wonderful job!",
           }).then(() => {
-            navigate('/manageblog');
+            navigate('/user/manageblog');
           })
         })
       } else {
@@ -72,7 +74,7 @@ const AddBlog = () => {
                   initialValues={{
                     title: "",
                     description: "",
-                    uploadedBy:"",
+                    createdBy:"",
                     data:"",
                     createdAt: Date,
                   }}
@@ -156,14 +158,12 @@ const AddBlog = () => {
                         />
                         <div className="container">
                          <MDEditor
-                         value={value}
-                           onChange={setValue}
+                         value={blogData}
+                           onChange={setBlogData}
                            />
                            </div>
 
                         </div>
-                        
-                        <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} />
 
                         
                       <button className="btn btn-primary btn-lg btn-block" type="submit">
