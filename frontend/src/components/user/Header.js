@@ -33,10 +33,24 @@ const Header = () => {
           
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/profile">Profile</NavLink>
+              <NavLink className="nav-link" to="/user/profile">Profile</NavLink>
             </li>
-            
-            
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/user/manageblog">Manage Blog</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/user/managevideo">Manage Video</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/user/listblog">List Blog</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/user/addblog">Add Blog</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/user/addvideo">Add Video</NavLink>
+            </li>
+
           </ul>
           
         </div>

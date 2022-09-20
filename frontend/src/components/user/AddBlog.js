@@ -1,0 +1,191 @@
+import React ,{useState}from 'react'
+import { Formik } from 'formik';
+import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import MDEditor from '@uiw/react-md-editor';
+
+const AddBlog = () => {
+  const navigate = useNavigate();
+  const [selFile, setSelFile,value,setValue] = useState("")
+    const userSubmit = async (formdata) => {
+      console.log(formdata);
+  
+      const response = await fetch("http://localhost:5000/blog/add", {
+        method: "POST",
+        body: JSON.stringify(formdata), //converting javascript object to json
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.status === 200) {
+        response.json().then(data => {
+          console.log(data);
+          sessionStorage.setItem('user', JSON.stringify(data));
+  
+          Swal.fire({
+            icon: "success",
+            title: "Well Done👍",
+            text: "You have done a wonderful job!",
+          }).then(() => {
+            navigate('/manageblog');
+          })
+        })
+      } else {
+        console.log("error occured");
+      }
+    };
+    const uploadFile = (e) => {
+      const file = e.target.files[0]
+      setSelFile(file.name)
+      const fd = new FormData()
+      fd.append("myfile", file)
+      fetch("http://localhost:5000/util/uploadfile", {
+        method: "POST",
+        body: fd,
+      }).then((res) => {
+        if (res.status === 200) {
+          console.log("uploaded")
+        }
+      })
+    }
+  return (
+    <div >
+    
+    <section className=" bg-image"
+      style={{
+        backgroundImage:
+          'url("https://wallpaperaccess.com/full/4893706.jpg")'
+      }}>
+        
+        
+        
+      <div className="container py-5 h-100">
+        
+        <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="card shadow-2-strong" style={{ borderRadius: "2rem" }}>
+              <div className="card-body p-5 text-center">
+                <h1 className="mb-5">Upload Blog</h1>
+
+                <Formik
+                  initialValues={{
+                    title: "",
+                    description: "",
+                    uploadedBy:"",
+                    data:"",
+                    createdAt: Date,
+                  }}
+                  onSubmit={userSubmit}
+                // validationSchema={SignupSchema}
+                >
+                  {({ values, handleChange, handleSubmit, errors }) => (
+                    <form
+                      onSubmit={handleSubmit}
+                      className="mx-1 mx-md-4"
+                    >
+                      <div className="form-outline mb-4">
+                      <TextField
+                          value={values.title}
+                          onChange={handleChange}
+                          id="title"
+                          sx={{ mt: 5 }}
+                          fullWidth
+                          label="TITLE"
+                          type="text"
+                          className="form-control"
+                        />
+                        
+                      </div>
+
+
+                      <div className="form-outline mb-4">
+                      <TextField
+                          value={values.description}
+                          onChange={handleChange}
+                          id="description"
+                          sx={{ mt: 5 }}
+                          fullWidth
+                          label="DESCRIPTION"
+                          type="text"
+                          className="form-control"
+                        />
+                        
+
+                        </div>
+
+                     <div className="form-outline mb-4">
+                      <TextField
+                          value={values.uploadedBy}
+                          onChange={handleChange}
+                          id="uploadedBy"
+                          sx={{ mt: 5 }}
+                          fullWidth
+                          label="UPLOADEDBY"
+                          type="text"
+                          className="form-control"
+                        />
+                       
+
+                        </div>
+
+                     <div className="form-outline mb-4">
+                      <TextField
+                          value={values.thumbnail}
+                          onChange={handleChange}
+                          id="file"
+                          sx={{ mt: 5 }}
+                          fullWidth
+                          label="Thumbnail"
+                          type="file"
+                          className="form-control"
+                        />
+                        
+
+                        </div>
+                        <div className="form-outline mb-4">
+                      <TextField
+                          value={values.data}
+                          onChange={handleChange}
+                          id="file"
+                          sx={{ mt: 5 }}
+                          fullWidth
+                          label="Data"
+                          type="file"
+                          className="form-control"
+                        />
+                        <div className="container">
+                         <MDEditor
+                         value={value}
+                           onChange={setValue}
+                           />
+                           </div>
+
+                        </div>
+                        
+                        <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} />
+
+                        
+                      <button className="btn btn-primary btn-lg btn-block" type="submit">
+                        UPLOAD
+                      </button>
+                      
+                    </form>
+                  )}
+                </Formik>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+    
+      
+    </section>
+
+  </div>
+  
+  )
+                  }
+ export default AddBlog                 
+
+

@@ -23,24 +23,32 @@ const Header = () => {
         
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           
-          <a className="navbar-brand mt-2 mt-lg-0" href="#">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-              height="15"
-              alt="MDB Logo"
-              loading="lazy"
-            />
-          </a>
+          
           
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/dashboad">Dashboard</NavLink>
+              <NavLink className="nav-link" to="/admin/dashboad">Dashboard</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/manageuser">Manageuser</NavLink>
+              <NavLink className="nav-link" to="/admin/manageuser">Manage user</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/profie">Profile</NavLink>
+              <NavLink className="nav-link" to="/admin/profie">Profile</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/admin/addlocation">Add location</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/admin/managelocation">Manage location</NavLink>
+
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/admin/vieworders">View orders</NavLink>
+
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/admin/videomanager">Video Manager</NavLink>
+
             </li>
             
           </ul>

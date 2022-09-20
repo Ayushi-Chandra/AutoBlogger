@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik } from 'formik';
 import Swal from "sweetalert2";
+import { TextField } from '@mui/material';
 
 const ContactUs = () => {
     const userSubmit = async (formdata) => {
@@ -31,7 +32,8 @@ const ContactUs = () => {
   className="vh-100 bg-image"
   style={{
     backgroundImage:
-      'url("https://img.freepik.com/premium-photo/concept-contact-us-blank-wooden-cubes-square-dice-with-symbol-email-telephone-address-placed-wood-background_44868-1254.jpg?w=2000")'
+      'url("https://www.wallpaperup.com/uploads/wallpapers/2012/10/02/17732/d24d52e2ab9c7933e839687ecc369cac-700.jpg")'
+    
   }}
 >
   <div className="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -42,9 +44,11 @@ const ContactUs = () => {
             <div className="card-body p-5">
               <h2 className="text-uppercase text-center mb-5">
                ContactUs
+
               </h2>
+            
               <Formik initialValues={{
-               name:"",
+               username:"",
                email:"",
                subject:"",
                message:"",
@@ -59,53 +63,53 @@ const ContactUs = () => {
                           >
               
                 <div className="form-outline mb-4">
-                <input
-                                  value={values.name}
-                                  onChange={handleChange}
-                                  type="text"
-                                  id="name"
-                                  className="form-control"
-                                />
-                  <label className="form-label" htmlFor="form3Example1cg">
-                     Name
-                  </label>
-                </div>
-                <div className="form-outline mb-4">
-                <input
-                                  value={values.email}
-                                  onChange={handleChange}
-                                  type="email"
-                                  id="email"
-                                  className="form-control"
-                                />
-                  <label className="form-label" htmlFor="form3Example3cg">
-                     Email
-                  </label>
-                </div>
-                <div className="form-outline mb-4">
-                <input
-                                  value={values.subject}
-                                  onChange={handleChange}
-                                  type="subject"
-                                  id="subject"
-                                  className="form-control"
-                                />
-                  <label className="form-label" htmlFor="form3Example4cg">
-                    Subject
-                  </label>
-                </div>
-                <div className="form-outline mb-4">
-                <input
-                                  value={values.message}
-                                  onChange={handleChange}
-                                  type="message"
-                                  id="message"
-                                  className="form-control"
-                                />
+                <TextField value={values.username}
+                            onChange={handleChange}
+                            id="username"
+                            sx={{ mt: 5 }}
+                            fullWidth
+                            label="User Name"
+                            type="text"
+                            className="form-control" />
                   
-                  <label className="form-label" htmlFor="form3Example4cdg">
-                    Message
-                  </label>
+                </div>
+                <div className="form-outline mb-4">
+                <TextField value={values.email}
+                            onChange={handleChange}
+                            id="email"
+                            sx={{ mt: 5 }}
+                            fullWidth
+                            label="Email"
+                            type="text"
+                            className="form-control" />
+                
+                </div>
+                <div className="form-outline mb-4">
+                <TextField
+                value={values.subject}
+                onChange={handleChange}
+                type="text"
+                id="subject"
+                className="form-control"
+         
+          label="Subject"
+          placeholder="Write the subject"
+          multiline
+        />
+                </div>
+                <div className="form-outline mb-4">
+                <TextField
+                value={values.message}
+                onChange={handleChange}
+                type="text"
+                id="message"
+                className="form-control"
+         
+          label="Message"
+          placeholder="Write your message..."
+          multiline
+        />
+                
                 </div>
                 <div className="form-check d-flex justify-content-center mb-5">
                   <input

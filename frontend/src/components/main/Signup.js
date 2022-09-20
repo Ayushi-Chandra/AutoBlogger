@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import { Formik } from 'formik'
 import React from 'react'
 import Swal from "sweetalert2";
@@ -31,7 +32,7 @@ const Signup = () => {
   className="vh-100 bg-image"
   style={{
     backgroundImage:
-      'url("https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp")'
+      'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjhyf99P582eds1C6iKL-FvgML7EROLpeqBk1Gt8L0aXzSSimwMHha_ROuLRpmFBRNdzI&usqp=CAU")'
   }}
 >
   <div className="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -60,54 +61,37 @@ const Signup = () => {
                           >
               
                 <div className="form-outline mb-4">
-                <input
-                                  value={values.name}
-                                  onChange={handleChange}
-                                  type="text"
-                                  id="name"
-                                  className="form-control"
-                                />
-                  <label className="form-label" htmlFor="form3Example1cg">
-                    Your Name
-                  </label>
+                <TextField value={values.username}
+                            onChange={handleChange}
+                            id="username"
+                            sx={{ mt: 5 }}
+                            fullWidth
+                            label="User Name"
+                            type="text"
+                            className="form-control" />
                 </div>
                 <div className="form-outline mb-4">
-                <input
-                                  value={values.email}
-                                  onChange={handleChange}
-                                  type="email"
-                                  id="email"
-                                  className="form-control"
-                                />
-                  <label className="form-label" htmlFor="form3Example3cg">
-                    Your Email
-                  </label>
+                <TextField value={values.email}
+                            onChange={handleChange}
+                            id="email"
+                            sx={{ mt: 5 }}
+                            fullWidth
+                            label="Email"
+                            type="text"
+                            className="form-control" />
+                
                 </div>
                 <div className="form-outline mb-4">
-                <input
-                                  value={values.password}
-                                  onChange={handleChange}
-                                  type="password"
-                                  id="password"
-                                  className="form-control"
-                                />
-                  <label className="form-label" htmlFor="form3Example4cg">
-                    Password
-                  </label>
+                <TextField value={values.password}
+                            onChange={handleChange}
+                            id="password"
+                            sx={{ mt: 5 }}
+                            fullWidth
+                            label="Password"
+                            type="password"
+                            className="form-control" />
                 </div>
-                <div className="form-outline mb-4">
-                <input
-                                  value={values.rpassword}
-                                  onChange={handleChange}
-                                  type="password"
-                                  id="password"
-                                  className="form-control"
-                                />
-                  
-                  <label className="form-label" htmlFor="form3Example4cdg">
-                    Repeat your password
-                  </label>
-                </div>
+                
                 <div className="form-check d-flex justify-content-center mb-5">
                   <input
                     className="form-check-input me-2"

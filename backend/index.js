@@ -9,6 +9,9 @@ const app = express();
 const port = 5000;
 
 const userRouter = require('./routers/userRouter');
+const videoRouter = require('./routers/videoRouter');
+const utilRouter = require('./routers/util');
+const blogRouter = require('./routers/blogRouter');
 
 
 
@@ -20,6 +23,9 @@ app.use(express.json());
 
 //middleware
 app.use('/user', userRouter);
+app.use('/video', videoRouter);
+app.use('/util', utilRouter);
+app.use('/blog', blogRouter);
 
 // creating a route or endpoint
 app.get( '/',(req,res)=>{

@@ -4,6 +4,10 @@ const myschema = new Schema({
     email: String,
     username: String,
     password: String,
+    message: String,
+    subject: String,
+    avatar: String,
+    createdAt: String,
     
 });
 

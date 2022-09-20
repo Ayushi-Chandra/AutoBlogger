@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik } from 'formik';
 import Swal from "sweetalert2";
+import { TextField } from '@mui/material';
 
 const ResetPassword = () => {
     const userSubmit = async (formdata) => {
@@ -31,7 +32,7 @@ const ResetPassword = () => {
   className="vh-100 bg-image"
   style={{
     backgroundImage:
-      'url("https://adamtheautomator.com/wp-content/uploads/2021/02/How-to-Reset-a-Windows-10-Password-with-a-Command-Prompt.jpg")'
+      'url("https://www.wallpaperup.com/uploads/wallpapers/2014/11/25/527124/489bde2e4f5b51830ebd462ff3b75dc4.jpg")'
   }}
 >
   <div className="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -61,41 +62,40 @@ const ResetPassword = () => {
               
                 
                 <div className="form-outline mb-4">
-                <input
-                                  value={values.email}
-                                  onChange={handleChange}
-                                  type="email"
-                                  id="email"
-                                  className="form-control"
-                                />
-                  <label className="form-label" >
-                     Email
-                  </label>
+                <TextField
+                            value={values.email}
+                            onChange={handleChange}
+                            id="email"
+                            sx={{ mt: 5 }}
+                            fullWidth
+                            label="Email"
+                            type="text"
+                            className="form-control"
+                          />
                 </div>
                 <div className="form-outline mb-4">
-                <input
-                                  value={values.subject}
-                                  onChange={handleChange}
-                                  type="password"
-                                  id="newpassword"
-                                  className="form-control"
-                                />
-                  <label className="form-label" htmlFor="form3Example4cg">
-                    New Password
-                  </label>
+                <TextField
+                            value={values.password}
+                            onChange={handleChange}
+                            id="password"
+                            sx={{ mt: 5 }}
+                            fullWidth
+                            label="New password"
+                            type="password"
+                            className="form-control"
+                          />
                 </div>
                 <div className="form-outline mb-4">
-                <input
-                                  value={values.message}
-                                  onChange={handleChange}
-                                  type="password"
-                                  id="confirmpassword"
-                                  className="form-control"
-                                />
-                  
-                  <label className="form-label" htmlFor="form3Example4cdg">
-                  Confirm Password
-                  </label>
+                <TextField
+                            value={values.password}
+                            onChange={handleChange}
+                            id="password"
+                            sx={{ mt: 5 }}
+                            fullWidth
+                            label="Confirm password"
+                            type="password"
+                            className="form-control"
+                          />
                 </div>
                 
                 <div className="d-flex justify-content-center">
