@@ -3,10 +3,12 @@ import React, { useEffect, useState} from 'react'
 import toast from 'react-hot-toast';
 import { Formik } from 'formik';
 import Swal from "sweetalert2";
+import app_config from '../../config';
 
 const UpdateUser = ({updateFormData, getDataFromBackend}) => {
+  const url = app_config.api_url;
 
-  const url = "http://localhost:5000";
+  const response  = "http://localhost:5000";
 
   const submitForm = async (formdata) => {
     console.log(formdata);

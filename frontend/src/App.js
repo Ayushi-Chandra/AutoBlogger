@@ -3,7 +3,7 @@ import './App.css';
 import Main from './components/main';
 import Login from './components/main/Login';
 import Signup from './components/main/Signup';
-import {BrowserRouter,Route,Link,Routes, Navigate} from 'react-router-dom';
+import { BrowserRouter, Route, Link, Routes, Navigate } from 'react-router-dom';
 import Admin from './components/admin';
 
 import Dashboard from './components/admin/Dashboard';
@@ -16,7 +16,7 @@ import Home from './components/main/Home';
 
 import ContactUs from './components/main/ContactUs';
 
-import Addlocation from './components/admin/Addlocation';
+
 import Managelocation from './components/admin/Managelocation';
 import Vieworders from './components/admin/Vieworders';
 import ListBlog from './components/user/ListBlog';
@@ -26,58 +26,69 @@ import ResetPassword from './components/main/ResetPassword';
 import Addvideo from './components/user/Addvideo';
 import AddBlog from './components/user/AddBlog';
 import ManageVideo from './components/user/ManageVideo';
+import Authorizer from './components/Auth';
+import { Card } from '@mui/material';
 
 function App() {
   return (
     <div >
       <BrowserRouter>
-      <Routes>
+        <Routes>
 
           <Route path="/" element={
             <Navigate to="/main/login" />
-          }/>
-        <Route element={<Main/>} path="main">
-          <Route path="login" element={<Login/>}/>
-          <Route path="home" element={<Home/>}/>
-        
-          
-          <Route path="resetpassword" element={<ResetPassword/>}/>
-          
-          
-          <Route path="contactus" element={<ContactUs/>}/>
-          <Route path="signup" element={<Signup/>}/>
-          
+          } />
+          <Route element={<Main />} path="main">
+            <Route path="login" element={<Login />} />
+            <Route path="home" element={<Home />} />
+            <Route path="listblog" element={<ListBlog />} />
 
 
-        </Route>
-
-        <Route element={<Admin/>}path="admin">
-          <Route path="dashboard" element={<Dashboard/>}/>
-          <Route path="manageuser" element={<Manageuser/>}/>
-          <Route path="profile" element={<AdminProfile/>}/>
-          <Route path="addlocation" element={<Addlocation/>}/>
-          <Route path="managelocation" element={<Managelocation/>}/>
-          <Route path="vieworders" element={<Vieworders/>}/>
-          <Route path="videomanager" element={<VideoManager/>}/>
-
-        </Route>
-      
-      <Route element={<User/>}path="user">
-          <Route path="profile" element={<UserProfile/>}/>
-          <Route path="listblog" element={<ListBlog/>}/>
-          <Route path="manageblog" element={<ManageBlog/>}/>
-          <Route path='addblog' element={<AddBlog/>}/>
-          <Route path="managevideo" element={<ManageVideo/>}/>
-          <Route path='addvideo' element={<Addvideo/>}/>
+            <Route path="resetpassword" element={<ResetPassword />} />
 
 
-        </Route>
-      </Routes>
+            <Route path="contactus" element={<ContactUs />} />
+            <Route path="signup" element={<Signup />} />
+            
 
-      
+
+          </Route>
+
+          <Route element={<Admin />} path="admin">
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="manageuser" element={<Manageuser />} />
+            <Route path="profile" element={<AdminProfile />} />
+            
+            <Route path="managelocation" element={<Managelocation />} />
+            <Route path="vieworders" element={<Vieworders />} />
+            <Route path="videomanager" element={<VideoManager />} />
+
+          </Route>
+
+          <Route element={<User />} path="user">
+            <Route path="profile" element={<UserProfile />} />
+            <Route path="listblog" element={<ListBlog />} />
+            <Route path="manageblog" element={<ManageBlog />} />
+            <Route path='addblog' element={
+            <Authorizer>
+              <AddBlog />
+            </Authorizer>} />
+            <Route path="managevideo" element={<ManageVideo />} />
+            <Route path='addvideo' element={
+              <Authorizer>
+                <Addvideo/>
+                </Authorizer>} />
+             
+           
+
+
+          </Route>
+        </Routes>
+
+
 
       </BrowserRouter>
-      
+
     </div>
   );
 }

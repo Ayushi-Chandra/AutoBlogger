@@ -1,22 +1,31 @@
 
 import React, { useEffect, useState} from 'react'
 import toast from 'react-hot-toast';
-import { Formik } from 'formik';
-import Swal from "sweetalert2";
 import Addvideo from './Addvideo';
+import app_config from '../../config';
 
 
 
 const ManageVideo = () => {
-    const url = "http://localhost:5000"
+  const url = app_config.api_url;
+    const response = "http://localhost:5000"
   const [userArray, setUserArray] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [updateFormData, setUpdateFormData] = useState(null);
+  const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('user')));
 
   
+  const generateTranscript = (id) => {
+    fetch(url+"/util/transcribe/"+id)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+    })
+
+  }
 
   const getDataFromBackend = () => {
-    fetch(url + "/user/getall")
+    fetch(url + "/video/getbyuser/"+currentUser._id)
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
@@ -74,8 +83,8 @@ const ManageVideo = () => {
             </td>
             
             <td>
-              <button type="button" className="btn btn-primary btn-sm btn-rounded" onClick={e => toggleUpdateForm({_id, username, email, password})}>
-                Edit
+              <button type="button" className="btn btn-primary btn-sm btn-rounded" onClick={e => generateTranscript(_id)}>
+                Create Blog 
               </button>
             </td>
             <td>

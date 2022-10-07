@@ -1,57 +1,66 @@
-import React, { useState } from 'react'
-import { Formik } from 'formik';
-import Swal from "sweetalert2";
-import { useNavigate } from 'react-router-dom';
-import { TextField } from "@mui/material";
+import React, { useEffect, useState } from 'react'
+import app_config from '../../config';
+import './ListBlog.css'
 
-const ListBlog = () => {
-  const navigate = useNavigate();
-    const [selFile, setSelFile] = useState("")
-    const userSubmit = async (formdata) => {
-      console.log(formdata);
-  
-      const response = await fetch("http://localhost:5000/video/add", {
-        method: "POST",
-        body: JSON.stringify(formdata), //converting javascript object to json
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
-      if (response.status === 200) {
-        response.json().then(data => {
-          console.log(data);
-          sessionStorage.setItem('user', JSON.stringify(data));
-  
-          Swal.fire({
-            icon: "success",
-            title: "Well Done👍",
-            text: "You have done a wonderful job!",
-          }).then(() => {
-            navigate('/managevideo');
-          })
-        })
-      } else {
-        console.log("error occured");
-      }
-    };
-    const uploadFile = (e) => {
-        const file = e.target.files[0]
-        setSelFile(file.name)
-        const fd = new FormData()
-        fd.append("myfile", file)
-        fetch("http://localhost:5000/addblog", {
-          method: "POST",
-          body: fd,
-        }).then((res) => {
-          if (res.status === 200) {
-            console.log("uploaded")
-          }
-        })
-      }
+
+function ListBlog({ title, imageUrl, body }) {
+  const url = app_config.api_url;
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    const url = app_config.api_url;
+    fetch(url + '/blog/getall')
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw response;
+      })
+      .then(data => {
+        setData(data);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error)
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+  }, [])
+  if (loading) return "Loading...";
+  if (error) return "Error!..."
   return (
-    <div>ListBlog</div>
+    <div className='row'>
+      <div className='col md-4'>
+        <div className="card-container" >
+          <div className='img-container'>
+            <img src={imageUrl} alt='' />
+          </div>
+          <div className='card-title'>
+            <h3>{title}</h3>
+          </div>
+          <div className='card-body'>
+            <p>{body}</p>
+          </div>
+          <div className='btn'>
+            <button>
+              <a>
+                View
+              </a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
   )
 }
 
+
 export default ListBlog
+

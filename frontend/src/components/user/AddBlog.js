@@ -4,16 +4,19 @@ import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 import {  TextField } from "@mui/material";
 import MDEditor from '@uiw/react-md-editor';
+import app_config from '../../config';
 
 const AddBlog = () => {
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('user')));
+  const url = app_config.api_url;
   const [selFile, setSelFile,value,setValue] = useState("")
   const [blogData, setBlogData] = useState("");
     const userSubmit = async (formdata) => {
       formdata.thumbnail = selFile;
       console.log(formdata);
   
-      const response = await fetch("http://localhost:5000/blog/add", {
+      const response = await fetch(url+"/blog/add", {
         method: "POST",
         body: JSON.stringify(formdata), //converting javascript object to json
         headers: {
@@ -43,7 +46,7 @@ const AddBlog = () => {
       setSelFile(file.name)
       const fd = new FormData()
       fd.append("myfile", file)
-      fetch("http://localhost:5000/util/uploadfile", {
+      fetch(url+"/util/uploadfile", {
         method: "POST",
         body: fd,
       }).then((res) => {
@@ -74,7 +77,7 @@ const AddBlog = () => {
                   initialValues={{
                     title: "",
                     description: "",
-                    createdBy:"",
+                    
                     data:"",
                     createdAt: Date,
                   }}
@@ -116,25 +119,15 @@ const AddBlog = () => {
 
                         </div>
 
-                     <div className="form-outline mb-4">
-                      <TextField
-                          value={values.uploadedBy}
-                          onChange={handleChange}
-                          id="uploadedBy"
-                          sx={{ mt: 5 }}
-                          fullWidth
-                          label="UPLOADEDBY"
-                          type="text"
-                          className="form-control"
-                        />
+                    
                        
 
-                        </div>
+                      
 
                      <div className="form-outline mb-4">
                       <TextField
-                          value={values.thumbnail}
-                          onChange={handleChange}
+                          
+                          onChange={uploadFile}
                           id="file"
                           sx={{ mt: 5 }}
                           fullWidth
@@ -146,16 +139,7 @@ const AddBlog = () => {
 
                         </div>
                         <div className="form-outline mb-4">
-                      <TextField
-                          value={values.data}
-                          onChange={handleChange}
-                          id="file"
-                          sx={{ mt: 5 }}
-                          fullWidth
-                          label="Data"
-                          type="file"
-                          className="form-control"
-                        />
+                      
                         <div className="container">
                          <MDEditor
                          value={blogData}

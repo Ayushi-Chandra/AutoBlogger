@@ -4,6 +4,7 @@ const myschema = new Schema({
     title: String,
     // description: String,
     file: String,
+    transcription: String,
     uploadedby: {type : Types.ObjectId, ref : 'users'},
     createdAt: Date,
     

@@ -62,6 +62,19 @@ router.get('/getbyusername/:username', (req,res)=>{
     });
 })
 
+router.get('/getbyuser/:userid', (req,res)=>{
+    Model.find({uploadedby: req.params.userid})
+    .then((result) => {
+       
+        res.json(result);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.json(err);
+        
+    });
+})
+
 router.get('/getbyid/:id', (req,res)=>{
     console.log (req.params.id)
     Model.findById(req.params.id)
