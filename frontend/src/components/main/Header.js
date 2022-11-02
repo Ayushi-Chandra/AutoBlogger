@@ -31,7 +31,7 @@ const Header = () => {
               alt="Logo"
               loading="lazy"
             />
-            <i className='rowhouse.png'></i>
+            
           </a>
           
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">

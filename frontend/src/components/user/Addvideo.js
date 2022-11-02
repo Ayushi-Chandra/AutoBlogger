@@ -56,11 +56,7 @@ const Addvideo = () => {
   return (
     <div className='vh-100'>
       <section className=" bg-image"
-        style={{
-          backgroundImage:
-            'url("https://wallpaperaccess.com/full/4893706.jpg")'
-
-        }}>
+      >
         <div className="container py-5 h-100">
 
           <div className="card shadow-2-strong" style={{ borderRadius: "1rem" }}>
@@ -82,13 +78,16 @@ const Addvideo = () => {
               // validationSchema={SignupSchema}
               >
                 {({ values, handleChange, handleSubmit, errors }) => (
-                  <form
+                  <form className="row row-cols-lg-auto g-3 align-items-center"
                     onSubmit={handleSubmit}
-                    className="row mb-4"
-
                   >
-                    <div className="form-control">
-                      <div className='col-md-4'>
+
+                    <div className="col-12">
+                      <label className="visually-hidden" htmlFor="inlineFormInputGroupUsername">
+                        Username
+                      </label>
+                      <div className="input-group">
+
                         <TextField
                           value={values.title}
                           onChange={handleChange}
@@ -99,26 +98,31 @@ const Addvideo = () => {
                           type="text"
                           className="form-control"
                         />
+                        
                       </div>
+                    </div>
+                    <div className="col-12">
+                      <label className="visually-hidden" htmlFor="inlineFormSelectPref">
 
-                      <div className='col-md-4'>
-                        <TextField
-                          onChange={uploadFile}
-                          id="file"
-                          sx={{ mt: 5 }}
-                          fullWidth
-                          label="UPLOAD FILE"
-                          type="file"
-                        />
+                      </label>
+                      <TextField
+                        onChange={uploadFile}
+                        id="file"
+                        sx={{ mt: 5 }}
+                        fullWidth
+                        label="UPLOAD FILE"
+                        type="file"
+                      />
+                    </div>
+                    <div className="col-12">
+                      <div className="form-check">
+
                       </div>
-
-
-
-                      <div className='col-md-4'>
-                        <button className="btn btn-primary btn-lg btn-block" type="submit">
-                          UPLOAD
-                        </button>
-                      </div>
+                    </div>
+                    <div className="col-12">
+                      <button type="submit" className="btn btn-primary">
+                        UPLOAD
+                      </button>
                     </div>
 
                   </form>

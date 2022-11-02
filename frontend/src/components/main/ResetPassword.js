@@ -1,125 +1,269 @@
-import React from 'react'
-import { Formik } from 'formik';
+import {
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
+import { useState } from "react";
+import app_config from "../../config";
 import Swal from "sweetalert2";
-import { TextField } from '@mui/material';
+import { Formik } from "formik";
+import { useNavigate } from "react-router-dom";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import * as Yup from "yup";
 
 const ResetPassword = () => {
-    const userSubmit = async (formdata) => {
-        console.log(formdata);
-    
-        const response = await fetch("http://localhost:5000/user/authenticate", {
-          method: "POST",
-          body: JSON.stringify(formdata), //converting javascript object to json
-          headers: {
-            "Content-Type": "application/json",
-          },
+  const [passVisible, setPassVisible] = useState(false);
+
+  const [email, setEmail] = useState("");
+
+  const [otp, setOTP] = useState("");
+  const [showReset, setShowReset] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const navigate = useNavigate();
+
+  const url = app_config.api_url;
+
+  const generateOTP = () => {
+    let otp = parseInt(Math.random().toFixed(4).substr(`-${4}`));
+    setOTP(otp);
+    return otp;
+  };
+
+  const passwordForm = {
+    otp: "",
+    password: "",
+    confirm: "",
+  };
+
+  const sendOTP = () => {
+    fetch(url + "/util/sendmail", {
+      method: "POST",
+      body: JSON.stringify({
+        to: email,
+        subject: "Password Reset",
+        text: "This is your OTP for password reset " + generateOTP(),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      console.log(res.status);
+      console.log("otp generate");
+      console.log(generateOTP());
+      if (res.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "success",
+          text: "OTP Sent Successfully",
         });
-    
-        if (response.status === 200) {
-          console.log("success");
+      }
+      return res.json();
+    });
+  };
+
+  const verifyUser = () => {
+    fetch(url + "/user/getbyemail/" + email)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (!data) {
+          console.log("not found!!");
           Swal.fire({
-            icon: "success",
-            title: "Well Done👍",
-            text: "You have done a wonderful job!",
+            icon: "error",
+            title: "Email not registered!!",
           });
         } else {
-          console.log("error occured");
+          setCurrentUser(data);
+          setShowReset(true);
+          sendOTP();
+          // console.log(generateOTP());
         }
-      };
+      });
+  };
+
+  const verifyOTP = (formdata) => {
+    if (otp == formdata.otp) {
+      console.log("otp matched");
+      resetPassword(formdata);
+    } else {
+      console.log("otp not matched");
+      Swal.fire({
+        icon: "error",
+        title: "failed",
+        text: "Enter Correct OTP",
+      });
+    }
+  };
+
+  const resetPassword = ({ password }) => {
+
+    fetch(url + "/user/update/" + currentUser._id, {
+      method: "PUT",
+      body: JSON.stringify({ password: password }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        console.log("reset");
+        if (res.status === 200)
+          Swal.fire({
+            icon: "success",
+            title: "Password Reset Success!!",
+          }).then(() => {
+            navigate("/main/login");
+          });
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+  };
+  const validationSchema = Yup.object().shape({
+    password: Yup.string()
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      )
+      .required("Password is Required"),
+    confirm: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Password Confirmation is Required"),
+  });
+
+
+
+  const showResetForm = () => {
+    if (showReset) {
+      return (
+        <Card className="mt-5" sx={{ width: 451 }} align="center">
+          <CardContent align="center">
+            <Formik
+              initialValues={passwordForm}
+              onSubmit={verifyOTP}
+              validationSchema={validationSchema}
+            >
+              {({ values, handleSubmit, handleChange, errors }) => (
+                <form onSubmit={handleSubmit}>
+                  <TextField
+                    className="w-100 mt-3"
+                    placeholder="Enter OTP recieved in Email"
+                    label="Enter OTP"
+                    variant="outlined"
+                    id="otp"
+                    value={values.otp}
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    className="w-100 mt-3"
+                    placeholder="Enter New Password"
+                    label="Password"
+                    variant="outlined"
+                    id="password"
+                    type={passVisible ? "text" : "password"}
+                    value={values.password}
+                    error={Boolean(errors.password)}
+                    helperText="Enter your Password please"
+                    onChange={handleChange}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility1"
+                            onClick={(e) => {
+                              setPassVisible(!passVisible);
+                            }}
+                            edge="end"
+                          >
+                            {passVisible ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    className="w-100 mt-3"
+                    placeholder="Confirm Password"
+                    label="Confirm Password"
+                    variant="outlined"
+                    id="confirm"
+                    type="password"
+                    value={values.confirm}
+                    error={errors.confirm}
+                    helperText={Boolean(errors.confirm)}
+                    onChange={handleChange}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility1"
+                            onClick={(e) => {
+                              setPassVisible(!passVisible);
+                            }}
+                            edge="end"
+                          >
+                            {passVisible ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    className="mt-5"
+                    type="submit"
+                    fullWidth
+                  >
+                    Submit
+                  </Button>
+                </form>
+              )}
+            </Formik>
+          </CardContent>
+        </Card>
+      );
+    }
+  };
+  // const validationSchema = Yup.object().shape({
+  //   email: Yup.string().email("Invalid email").required("Email is Required")
+  // });
 
   return (
-    <section
-  className="vh-100 bg-image"
-  style={{
-    backgroundImage:
-      'url("https://www.wallpaperup.com/uploads/wallpapers/2014/11/25/527124/489bde2e4f5b51830ebd462ff3b75dc4.jpg")'
-  }}
->
-  <div className="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div className="container h-100">
-      <div className="row d-flex justify-content-center align-items-center h-100">
-        <div className="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div className="card" style={{ borderRadius: 15 }}>
-            <div className="card-body p-5">
-              <h2 className="text-uppercase text-center mb-5">
-               Reset Password
-              </h2>
-              <Formik initialValues={{
-               
-               email:"",
-               newpassword:"",
-               confirmpassword:"",
-               
-             }}
-             onSubmit={userSubmit}
-                        // validationSchema={SignupSchema}
-                      >
-                        {({ values, handleChange, handleSubmit, errors }) => (
-                          <form
-                            onSubmit={handleSubmit}
-                            className="mx-1 mx-md-4"
-                          >
-              
-                
-                <div className="form-outline mb-4">
-                <TextField
-                            value={values.email}
-                            onChange={handleChange}
-                            id="email"
-                            sx={{ mt: 5 }}
-                            fullWidth
-                            label="Email"
-                            type="text"
-                            className="form-control"
-                          />
-                </div>
-                <div className="form-outline mb-4">
-                <TextField
-                            value={values.password}
-                            onChange={handleChange}
-                            id="password"
-                            sx={{ mt: 5 }}
-                            fullWidth
-                            label="New password"
-                            type="password"
-                            className="form-control"
-                          />
-                </div>
-                <div className="form-outline mb-4">
-                <TextField
-                            value={values.password}
-                            onChange={handleChange}
-                            id="password"
-                            sx={{ mt: 5 }}
-                            fullWidth
-                            label="Confirm password"
-                            type="password"
-                            className="form-control"
-                          />
-                </div>
-                
-                <div className="d-flex justify-content-center">
-                  <button
-                    type="button"
-                    className="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
-                  >
-                    Send
-                  </button>
-                </div>
-                
-              </form>
-                        )}
-                        </Formik>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="reset-card" align="center">
+      <Card className="mt-5" sx={{ width: 451 }} align="center">
+        <CardContent align="center">
+          <TextField
+            className="w-100 mt-3"
+            placeholder="Enter Your Email"
+            label="Email"
+            variant="outlined"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <Button
+            color="success"
+            variant="contained"
+            className="mt-5"
+            type="submit"
+            fullWidth
+            onClick={verifyUser}
+          >
+            Submit
+          </Button>
+        </CardContent>
+      </Card>
+
+      {showResetForm()}
     </div>
-  </div>
-</section>
-    
-    
-  )
-}
+  );
+};
 
 export default ResetPassword;

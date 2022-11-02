@@ -76,7 +76,7 @@ const Login = () => {
                             fullWidth
                             label="Email"
                             type="text"
-                            className="form-control"
+                            // className="form-control"
                           />
 
                           
