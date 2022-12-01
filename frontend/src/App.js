@@ -17,7 +17,7 @@ import Home from './components/main/Home';
 import ContactUs from './components/main/ContactUs';
 
 
-import Managelocation from './components/admin/Managelocation';
+
 import Vieworders from './components/admin/Vieworders';
 import ListBlog from './components/user/ListBlog';
 import ManageBlog from './components/user/ManageBlog';
@@ -28,6 +28,7 @@ import AddBlog from './components/user/AddBlog';
 import ManageVideo from './components/user/ManageVideo';
 import Authorizer from './components/Auth';
 import { Card } from '@mui/material';
+import Sidebar from './components/admin/Sidebar';
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
         <Routes>
 
           <Route path="/" element={
-            <Navigate to="/main/login" />
+            <Navigate to="/main/home" />
           } />
           <Route element={<Main />} path="main">
             <Route path="login" element={<Login />} />
@@ -56,10 +57,11 @@ function App() {
 
           <Route element={<Admin />} path="admin">
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="sidebar" element={<Sidebar />} />
             <Route path="manageuser" element={<Manageuser />} />
             <Route path="profile" element={<AdminProfile />} />
             
-            <Route path="managelocation" element={<Managelocation />} />
+          
             <Route path="vieworders" element={<Vieworders />} />
             <Route path="videomanager" element={<VideoManager />} />
 

@@ -6,6 +6,7 @@ import { TextField} from "@mui/material";
 
 
 
+
 const Login = () => {
   
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Login = () => {
         
         Swal.fire({
           icon: "success",
-          title: "Well Done👍",
+          title: "Login Successful",
           text: "You have done a wonderful job!",
         }).then(() => {
           navigate('/user/managevideo');
@@ -45,7 +46,7 @@ const Login = () => {
       <section className="vh-100 bg-image"
         style={{
           backgroundImage:
-            'url("https://wallpaperaccess.com/full/4893706.jpg")'
+            'url("")'
         }}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
@@ -58,9 +59,10 @@ const Login = () => {
                     initialValues={{
                       password: "",
                       email: "",
+                      
                     }}
                     onSubmit={userSubmit}
-                  // validationSchema={SignupSchema}
+                   //validationSchema={SignupSchema}
                   >
                     {({ values, handleChange, handleSubmit, errors }) => (
                       <form
@@ -89,18 +91,15 @@ const Login = () => {
                             value={values.lastname}
                             onChange={handleChange}
                             id="password"
-                            sx={{ mt: 5 }}
+                            sx={{ mt: 2}}
                             fullWidth
                             label="Password"
                             type="password"
-                            className="form-control"
+                            
                           />
 
-
-                          
-
                         </div>
-                        {/* Checkbox */}
+                        
                         <div className="form-check d-flex justify-content-start mb-4">
                           <input
                             className="form-check-input"
@@ -116,22 +115,9 @@ const Login = () => {
                         <button className="btn btn-primary btn-lg btn-block" type="submit">
                           Login
                         </button>
-                        <hr className="my-4" />
-                        <button
-                          className="btn btn-lg btn-block btn-primary"
-                          style={{ backgroundColor: "#dd4b39" }}
-                          type="submit"
-                        >
-                          <i className="fab fa-google me-2" /> Sign in with google
-                        </button>
-                        <button
-                          className="btn btn-lg btn-block btn-primary mb-2"
-                          style={{ backgroundColor: "#3b5998" }}
-                          type="submit"
-                        >
-                          <i className="fab fa-facebook-f me-2" />
-                          Sign in with facebook
-                        </button>
+                        
+                        
+                        
                       </form>
                     )}
                   </Formik>

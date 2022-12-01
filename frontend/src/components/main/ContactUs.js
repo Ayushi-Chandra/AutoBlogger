@@ -2,12 +2,13 @@ import React from 'react'
 import { Formik } from 'formik';
 import Swal from "sweetalert2";
 import { TextField } from '@mui/material';
+import { blueGrey } from '@mui/material/colors';
 
 const ContactUs = () => {
     const userSubmit = async (formdata) => {
         console.log(formdata);
     
-        const response = await fetch("http://localhost:5000/user/authenticate", {
+        const response = await fetch("http://localhost:5000/user/add", {
           method: "POST",
           body: JSON.stringify(formdata), //converting javascript object to json
           headers: {
@@ -31,8 +32,8 @@ const ContactUs = () => {
     <section
   className="vh-100 bg-image"
   style={{
-    backgroundImage:
-      'url("https://www.wallpaperup.com/uploads/wallpapers/2012/10/02/17732/d24d52e2ab9c7933e839687ecc369cac-700.jpg")'
+    backgroundColor: blueGrey
+      
     
   }}
 >

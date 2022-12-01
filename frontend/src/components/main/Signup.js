@@ -2,6 +2,7 @@ import { TextField } from '@mui/material';
 import { Formik } from 'formik'
 import React from 'react'
 import Swal from "sweetalert2";
+import * as Yup from "yup";
 
 const Signup = () => {
   const userForm={
@@ -75,7 +76,7 @@ const Signup = () => {
                             fullWidth
                             label="User Name"
                             type="text"
-                            className="form-control" />
+                            />
                         </div>
                         <div className="form-outline mb-4">
                           <TextField value={values.email}
@@ -85,7 +86,7 @@ const Signup = () => {
                             fullWidth
                             label="Email"
                             type="text"
-                            className="form-control" />
+                            />
 
                         </div>
                         <div className="form-outline mb-4">
@@ -96,7 +97,7 @@ const Signup = () => {
                             fullWidth
                             label="Password"
                             type="password"
-                            className="form-control" />
+                             />
                         </div>
 
                         <div className="form-check d-flex justify-content-center mb-5">
@@ -115,15 +116,14 @@ const Signup = () => {
                         </div>
                         <div className="d-flex justify-content-center">
                           <button
-                            type="button"
-                            className="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                            className="btn btn-success btn-block btn-lg gradient-custom-4"
                           >
                             Register
                           </button>
                         </div>
                         <p className="text-center text-muted mt-5 mb-0">
                           Have already an account?{" "}
-                          <a href="#!" className="fw-bold text-body">
+                          <a href="#login" className="fw-bold text-body">
                             <u>Login here</u>
                           </a>
                         </p>
