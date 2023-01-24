@@ -7,7 +7,7 @@ const Header = () => {
         
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
       
-      <div className="container-fluid">
+      <div className="container">
         
         <button
           className="navbar-toggler"
@@ -26,8 +26,8 @@ const Header = () => {
           
           <a className="navbar-brand mt-2 mt-lg-0" href="#">
             <img
-              src="rowhouse.png"
-              height="15"
+              src="logo.png"
+              height="30"
               alt="Logo"
               loading="lazy"
             />

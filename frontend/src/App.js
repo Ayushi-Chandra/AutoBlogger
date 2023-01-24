@@ -21,14 +21,12 @@ import ContactUs from './components/main/ContactUs';
 import Vieworders from './components/admin/Vieworders';
 import ListBlog from './components/user/ListBlog';
 import ManageBlog from './components/user/ManageBlog';
-import VideoManager from './components/admin/VideoManager';
 import ResetPassword from './components/main/ResetPassword';
-import Addvideo from './components/user/Addvideo';
+// import Addvideo from './components/user/Addvideo';
 import AddBlog from './components/user/AddBlog';
-import ManageVideo from './components/user/ManageVideo';
 import Authorizer from './components/Auth';
-import { Card } from '@mui/material';
 import Sidebar from './components/admin/Sidebar';
+import VideoManager from './components/user/VideoManager';
 
 function App() {
   return (
@@ -75,16 +73,8 @@ function App() {
             <Authorizer>
               <AddBlog />
             </Authorizer>} />
-            <Route path="managevideo" element={<ManageVideo />} />
-            <Route path='addvideo' element={
-              <Authorizer>
-                <Addvideo/>
-                </Authorizer>} />
-             
-           
-
-
-          </Route>
+            <Route path="managevideo" element={<VideoManager />} />
+            </Route>
         </Routes>
 
 
