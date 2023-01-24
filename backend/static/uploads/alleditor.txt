@@ -1,0 +1,34 @@
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        ListNode *h=head;
+        if(left!=right) {
+            for(int i=1;i<left-1;++i) 
+            {
+                h=h->next;
+            }
+            ListNode *fr=NULL;
+            ListNode *prev=h;
+            h=h->next;
+            for(int j=left;j<=right;++j)
+            {
+                fr=h->next;
+                h->next=prev;
+                prev=h;
+                h=fr;
+            }
+            head->next->next=prev->next;
+            head->next=prev;
+            //h=prev;
+            return head;
+        }
+        else {
+            return head;
