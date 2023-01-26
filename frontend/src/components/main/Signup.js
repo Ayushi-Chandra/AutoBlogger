@@ -109,7 +109,7 @@ const Signup = () => {
                           />
                           <label className="form-check-label" htmlFor="form2Example3g">
                             I agree all statements in{" "}
-                            <a href="#!" className="text-body">
+                            <a href="TermsOfService" className="text-body">
                               <u>Terms of service</u>
                             </a>
                           </label>

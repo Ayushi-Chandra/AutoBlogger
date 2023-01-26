@@ -32,7 +32,8 @@ const ContactUs = () => {
     <section
   className="vh-100 bg-image"
   style={{
-    backgroundColor: blueGrey
+    backgroundImage:
+    'url("https://media.istockphoto.com/id/1308684522/vector/blue-and-green-blurred-motion-abstract-background.jpg?s=612x612&w=0&k=20&c=ELAPwLRDLH1AbjPDL9RyKBuJR9vcJqn0j8Iz4JLfuCI=")'
       
     
   }}
