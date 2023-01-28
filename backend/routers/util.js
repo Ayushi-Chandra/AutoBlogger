@@ -75,7 +75,7 @@ router.get("/transcribe/:videoid", (req, res) => {
               { new: true }
             )
             .then((updatedata) => {
-              console.log(updatedata);
+              // console.log(updatedata);
               res.status(200).json(updatedata);
             })
             .catch((err) => {

@@ -64,7 +64,7 @@ router.get('/getbyuser/:id', (req, res) => {
     });
 });
 
-router.delete('/delete/:id', (req, res) => {
+router.delete('/deletebyid/:id', (req, res) => {
     
     Model.findByIdAndDelete(req.params.id)
     .then((result) => {

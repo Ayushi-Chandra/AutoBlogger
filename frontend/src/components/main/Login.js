@@ -46,7 +46,7 @@ const Login = () => {
       <section className="vh-100 bg-image"
         style={{
           backgroundImage:
-            'url("https://t3.ftcdn.net/jpg/03/23/64/18/360_F_323641895_p6ujJkuj5awGuMl6kuCtCe37XrI3LP50.jpg")'
+            'url("https://img.freepik.com/free-vector/vibrant-summer-ombre-background-vector_53876-105765.jpg?w=2000")'
         }}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">

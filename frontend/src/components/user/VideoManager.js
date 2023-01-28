@@ -6,9 +6,10 @@ import app_config from "../../config";
 import Loading from "../main/Loading";
 import "./VideoManager.css";
 import { motion } from "framer-motion";
+import AddVideo from "./Addvideo";
 
 const VideoManager = () => {
-  const url = app_config.backend_url;
+  const url = app_config.api_url;
   const [userArray, setUserArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [blogLoading, setBlogLoading] = useState(false);
@@ -37,6 +38,7 @@ const VideoManager = () => {
 
   const convertVideotoBlog = async (id, index) => {
     setSelBlog(index);
+    console.log(id);
     // setTimeout(() => {
     //   console.log(id);
     //   setSelBlog(null);
@@ -44,6 +46,7 @@ const VideoManager = () => {
     // return;
     // setBlogLoading(true);
     const response = await fetch(url + "/util/transcribe/" + id);
+    console.log(response.status);
     if (response.status === 200) {
       Swal.fire({
         title: "Success",
@@ -90,7 +93,7 @@ const VideoManager = () => {
             
             <div
               className="thumb-small"
-              style={{ backgroundImage: `url('${url + "/" + thumbnail}')` }}
+              style={{ backgroundImage: `url('${thumbnail ? 'image.png': url + "/" + thumbnail}')` }}
             >
               <div className="p-3 thumb-options">
                 {/* <h5 className="card-title">{title}</h5>
@@ -148,7 +151,7 @@ const VideoManager = () => {
         </div>
       </section>
       <section>
-        {/* <AddVideo getDataFromBackend={getDataFromBackend} /> */}
+        <AddVideo getDataFromBackend={getDataFromBackend} />
         <div>
           <h3 className="text-center mt-4">All Videos</h3>
         </div>

@@ -105,7 +105,7 @@ router.put("/update/:userid", (req, res) => {
       })
   })
 
-router.delete('/delete/:id', (req,res)=>{
+router.delete('/deletebyid/:id', (req,res)=>{
     console.log(req.params.id)
     
     Model.findByIdAndDelete({_id: req.params.id})

@@ -53,7 +53,7 @@ router.get('/getbyid/:id', (req, res) => {
         res.status(500).json(err);
     });
 });
-router.get('/getbyuser/:id', (req, res) => {
+router.get('/getbyuserid/:id', (req, res) => {
     
     Model.find({createdBy : req.params.id})
     .then((result) => {
@@ -64,7 +64,7 @@ router.get('/getbyuser/:id', (req, res) => {
     });
 });
 
-router.delete('/delete/:id', (req, res) => {
+router.delete('/deletebyid/:id', (req, res) => {
     
     Model.findByIdAndDelete(req.params.id)
     .then((result) => {
