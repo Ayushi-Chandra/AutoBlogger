@@ -48,7 +48,8 @@ async function transcriber(audioSource, cb) {
 
   const { transcript, confidence, words } =
     response.results.channels[0].alternatives[0];
-  console.log(transcript);
+  // console.log(transcript);
+  console.log('done');
   cb({ transcript, confidence, words });
 }
 
