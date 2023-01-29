@@ -72,7 +72,7 @@ router.get("/transcribe/:videoid", (req, res) => {
           videoModel
             .findByIdAndUpdate(
               req.params.videoid,
-              { transcription: { ...{ text: transcript }, confidence, words } },
+              { transcription: transcript },
               { new: true }
             )
             .then((updatedata) => {
@@ -80,7 +80,8 @@ router.get("/transcribe/:videoid", (req, res) => {
               res.status(200).json(updatedata);
             })
             .catch((err) => {
-              console.error(err);
+              console.error('error occured while transcribing');
+              console.error(err.message);
             });
         });
       }
