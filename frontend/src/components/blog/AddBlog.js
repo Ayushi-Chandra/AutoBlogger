@@ -216,3 +216,9 @@ const BlogSubmit = async (formdata) => {
 };
 
 export default AddBlog;
+
+// arr3 = [3]
+// for(int i=0;i<len;i++){
+//   arr3[i] = arr1[i]+arr2[i]
+// }
+
