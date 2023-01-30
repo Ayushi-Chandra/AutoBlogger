@@ -55,7 +55,6 @@ function App() {
 
           <Route element={<User />} path="user">
             <Route path="profile" element={<UserProfile />} />
-            <Route path="listblog" element={<ListBlog />} />
             <Route path="manageblog" element={<ManageBlog />} />
             <Route
               path="addblog"
