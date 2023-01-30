@@ -15,7 +15,6 @@ import Home from "./components/main/Home";
 
 import ContactUs from "./components/main/ContactUs";
 
-import Vieworders from "./components/admin/Vieworders";
 import ListBlog from "./components/user/ListBlog";
 import ManageBlog from "./components/user/ManageBlog";
 import ResetPassword from "./components/main/ResetPassword";
@@ -51,7 +50,6 @@ function App() {
             <Route path="manageuser" element={<Manageuser />} />
             <Route path="profile" element={<AdminProfile />} />
 
-            <Route path="vieworders" element={<Vieworders />} />
             <Route path="videomanager" element={<VideoManager />} />
           </Route>
 

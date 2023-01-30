@@ -27,7 +27,7 @@ const Header = () => {
           
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/dashboad">Dashboard</NavLink>
+              <NavLink className="nav-link" to="/admin/dashboard">Dashboard</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/admin/manageuser">Manage user</NavLink>
@@ -35,17 +35,9 @@ const Header = () => {
             <li className="nav-item">
               <NavLink className="nav-link" to="/admin/profie">Profile</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/addlocation">Add location</NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink className="nav-link" to="/admin/managelocation">Manage location</NavLink>
-
-            </li>
-            <li className='nav-item'>
-              <NavLink className="nav-link" to="/admin/vieworders">View orders</NavLink>
-
-            </li>
+            
+            
+            
             <li className='nav-item'>
               <NavLink className="nav-link" to="/admin/videomanager">Video Manager</NavLink>
 
