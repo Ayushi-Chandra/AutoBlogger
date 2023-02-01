@@ -26,6 +26,8 @@ import VideoManager from "./components/user/VideoManager";
 import Blog from "./components/blog";
 import BlogManager from "./components/blog/BlogManager";
 import ViewBlog from "./components/blog/ViewBlog";
+import TermsOfService from "./components/main/TermsOfService";
+import { AppProvider } from "./components/user/AppContext";
 
 function App() {
   return (
@@ -42,6 +44,7 @@ function App() {
 
             <Route path="contactus" element={<ContactUs />} />
             <Route path="signup" element={<Signup />} />
+            <Route path="termsofservice" element={<TermsOfService />} />
           </Route>
 
           <Route element={<Admin />} path="admin">

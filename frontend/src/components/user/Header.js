@@ -1,7 +1,23 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+
+import React, { useContext } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { AppContext } from "./AppContext";
+import { useState } from "react";
+
 
 const Header = () => {
+  const url = "http://localhost:5000";
+  const [currentUser , setCurrentUser]=  useState(JSON.parse(sessionStorage.getItem('user')))
+  const {loggedIn,setloggedIn} = useContext(AppContext);
+  const navigate = useNavigate();
+  const logout =()=>{
+    //destroy session value 
+    sessionStorage.removeItem('user');
+    //  setloggedIn to false
+    setloggedIn(false)
+    //  navigate to login page
+    navigate('/home')
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       
@@ -117,9 +133,18 @@ const Header = () => {
               <li>
                 <a className="dropdown-item" href="#">Settings</a>
               </li>
-              <li>
+              {/* <li>
                 <a className="dropdown-item" href="#">Logout</a>
+              </li> */}
+              {
+              // currentUser=== null?
+              !loggedIn?
+              <li className="nav-item">
+                <NavLink className="btn btn-primary" to="/main/login">Login Now</NavLink>
               </li>
+              :
+              <button onClick={logout} className="btn btn-danger">Logout</button>
+            }
             </ul>
           </div>
         </div>
