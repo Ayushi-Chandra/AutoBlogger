@@ -69,6 +69,7 @@ function App() {
 
           <Route element={<Blog />} path="blog">
             <Route
+            
               element={
                 <Authorizer>
                   <AddBlog />
@@ -93,6 +94,9 @@ function App() {
               path="viewblog/:id"
             />
             <Route element={<ListBlog></ListBlog>} path="listblog"></Route>
+            <Route element={<AddBlog></AddBlog>} path="addblog"></Route>
+            <Route element={<ViewBlog></ViewBlog>} path="viewblog"></Route>
+            <Route element={<BlogManager></BlogManager>} path="blogmanager"></Route>
           </Route>
         </Routes>
       </BrowserRouter>
