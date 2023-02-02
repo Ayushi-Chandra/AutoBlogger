@@ -16,7 +16,7 @@ const Header = () => {
     //  setloggedIn to false
     setloggedIn(false)
     //  navigate to login page
-    navigate('/home')
+    navigate('./main/home')
   }
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
