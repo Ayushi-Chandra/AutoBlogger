@@ -32,6 +32,7 @@ import { AppProvider } from "./components/user/AppContext";
 function App() {
   return (
     <div>
+       <AppProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/main/home" />} />
@@ -103,6 +104,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </AppProvider>
     </div>
   );
 }
