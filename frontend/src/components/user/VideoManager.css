@@ -22,3 +22,10 @@
     justify-content: center;
     align-items: center;
 }
+
+.thumb-small{
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+}

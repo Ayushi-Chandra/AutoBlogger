@@ -74,13 +74,17 @@ const AddBlog = () => {
   };
   return (
     <div>
+      
       <section
         className=" bg-image"
-        style={{
-          backgroundImage:
-            'url("https://wallpaperaccess.com/full/4893706.jpg")',
-        }}
+        // style={{
+        //   backgroundImage:
+        //     'url("https://wallpaperaccess.com/full/4893706.jpg")',
+        // }}
       >
+        <section className="header-top">
+      <h1 className="header-text">Create New Blog</h1>
+      </section>
         <div className="container py-5">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div

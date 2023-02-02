@@ -89,11 +89,9 @@ const VideoManager = () => {
     if (!loading) {
       return userArray.map(({ _id, title, description, file, thumbnail }, index) => (
         <div className="col-md-3 mt-4" key={_id}>
-          <div className="card">
-            
             <div
               className="thumb-small"
-              style={{ backgroundImage: `url('${thumbnail ? 'image.png': url + "/" + thumbnail}')` }}
+              style={{ backgroundImage: `url('${thumbnail ?url + "/" + thumbnail: 'video-placeholder.webp'}')` }}
             >
               <div className="p-3 thumb-options">
                 {/* <h5 className="card-title">{title}</h5>
@@ -124,8 +122,11 @@ const VideoManager = () => {
                   </button>
                 )}
               </div>
+
+              <p className="h3 text-muted ms-3">{title}</p>
+              <p className="h6 text-muted ms-3">{file}</p>
             </div>
-          </div>
+          
         </div>
       ));
     } else {
@@ -145,13 +146,12 @@ const VideoManager = () => {
       transition={{ type: "keyframes" }}
       className="vid-manage-bg"
     >
-      <section>
-        <div className="d-flex justify-content-center align-items-center  videoheader ">
-          <h1 className="text-light">Add video and convert it to blog</h1>
-        </div>
+      <section className="header-top">
+        {/* <i class="fas fa-paperclip header-text"></i> */}
+      <h1 className="header-text">Manage Your Videos</h1>
       </section>
       <section>
-        <AddVideo getDataFromBackend={getDataFromBackend} />
+        
         <div>
           <h3 className="text-center mt-4">All Videos</h3>
         </div>
@@ -160,12 +160,13 @@ const VideoManager = () => {
         <div className="col-md-10 mx-auto">
           <div className="row mt-3 mb-5">
           <div className="col-md-3 mt-4">
+            <Link to="/user/addvideo">
           <div className="card h-100">
             <div className="card-body">
               <motion.img whileHover={{ scale: 1.3 }} transition={{type: 'spring'}} style={{display: 'block', margin: 'auto', height: 150}} src="https://lordicon.com/upload/icons/2022_02/z31mkGzma.gif" alt="" />
-            
             </div>
             </div>
+            </Link>
             </div>
             {displayVideo()}
             </div>

@@ -5,9 +5,10 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Loading from "../main/Loading";
+import { motion } from "framer-motion";
 
 
-const AddVideo = ({getDataFromBackend}) => {
+const AddVideo = () => {
 
   const [selFile, setSelFile] = useState("");
   const [selImage, setSelImage] = useState("");
@@ -19,6 +20,7 @@ const AddVideo = ({getDataFromBackend}) => {
     title: "",
     description: "",
   };
+
 
   const uploadFile = (e) => {
     const file = e.target.files[0];
@@ -73,7 +75,7 @@ const AddVideo = ({getDataFromBackend}) => {
         text: "Video added successfully😁👍",
         icon: "success",
       });
-      getDataFromBackend();
+      // getDataFromBackend();
     } else {
       console.log("Something went wrong");
       Swal.fire({
@@ -86,7 +88,14 @@ const AddVideo = ({getDataFromBackend}) => {
   };
 
   return (
-    <div className="container-fluid">
+    <motion.div
+      initial={{ opacity: 0, x: 300 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0.5, x: -300 }}
+      transition={{ type: "keyframes" }} className="container-fluid">
+      <section className="header-top">
+      <h1 className="header-text">Add New Video</h1>
+      </section>
           <div className="card mt-5 w-50 mx-auto">
       <Formik initialValues={userForm} onSubmit={userSubmit} >
         {({ values, handleChange, handleSubmit }) => (
@@ -154,7 +163,7 @@ const AddVideo = ({getDataFromBackend}) => {
         )}
       </Formik>
       </div>
-      </div>
+      </motion.div>
   );
 };
 

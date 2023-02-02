@@ -15,7 +15,6 @@ import Home from "./components/main/Home";
 
 import ContactUs from "./components/main/ContactUs";
 
-import ListBlog from "./components/user/ListBlog";
 import ManageBlog from "./components/user/ManageBlog";
 import ResetPassword from "./components/main/ResetPassword";
 // import Addvideo from './components/user/Addvideo';
@@ -26,6 +25,8 @@ import VideoManager from "./components/user/VideoManager";
 import Blog from "./components/blog";
 import BlogManager from "./components/blog/BlogManager";
 import ViewBlog from "./components/blog/ViewBlog";
+import AddVideo from "./components/user/AddVideo";
+import ListBlog from "./components/blog/ListBlog";
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
               }
             />
             <Route path="managevideo" element={<VideoManager />} />
+            <Route path="addvideo" element={<AddVideo />} />
           </Route>
 
           <Route element={<Blog />} path="blog">

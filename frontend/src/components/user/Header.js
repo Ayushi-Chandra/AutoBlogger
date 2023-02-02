@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark" style={{
+      backgroundColor: `#01b79f`
+    }}>
       
       <div className="container-fluid">
         
@@ -22,30 +24,33 @@ const Header = () => {
         
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           
-          <a className="navbar-brand mt-2 mt-lg-0" href="#">
+          <NavLink className="navbar-brand mt-2 mt-lg-0" to="/">
             <img
               src="web-article.png"
               height="45"
               alt=" Logo"
               loading="lazy"
             />
-          </a>
+          </NavLink>
           
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/user/profile">Profile</NavLink>
+              <NavLink className="nav-link" to="/main/home">Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/user/manageblog">Manage Blog</NavLink>
+              <NavLink className="nav-link" to="/user/addvideo">Add Video</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/user/managevideo">Manage Video</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/user/listblog">List Blog</NavLink>
+              <NavLink className="nav-link" to="/user/addblog">Add Blog</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/user/addblog">Add Blog</NavLink>
+              <NavLink className="nav-link" to="/user/manageblog">Manage Blog</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/blog/listblog">List Blog</NavLink>
             </li>
            
 

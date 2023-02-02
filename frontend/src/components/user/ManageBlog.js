@@ -1,171 +1,134 @@
-
-import React, { useEffect, useState} from 'react'
-import toast from 'react-hot-toast';
-import { Formik } from 'formik';
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import app_config from '../../config';
-
-const UpdateUser = ({updateFormData, getDataFromBackend}) => {
-  const url = app_config.api_url;
-
-  const response  = "http://localhost:5000";
-
-  const submitForm = async (formdata) => {
-    console.log(formdata);
-    const res = await fetch(url+'/user/update/'+formdata._id, {
-      method:'PUT',
-      body: JSON.stringify(formdata),
-      headers: {
-        'Content-Type' : 'application/json'
-      }
-    })
-
-    if(res.status === 200){
-      Swal.fire({
-        icon : 'success',
-        title : 'Updated',
-        text : 'User Updated'
-      })
-      getDataFromBackend();
-    }
-  }
-
-  return <div className="card">
-  <div className="card-body">
-        <h3 className="text-center">Register Here to Continue</h3>
-        <hr />
-
-        <Formik
-          initialValues={updateFormData}
-          onSubmit={submitForm}>
-          {({ values, handleChange, handleSubmit }) => (
-            <form onSubmit={handleSubmit}>
-              <label>Username</label>
-              <input className="form-control mb-4" value={values.username} onChange={handleChange} id="username" />
-              <label>Email</label>
-              <input className="form-control mb-4" value={values.email} onChange={handleChange} id="email" />
-              <label>Password</label>
-              <input type="password" className="form-control mb-4" value={values.password} onChange={handleChange} id="password" />
-              <label>Age</label>
-              <input type="number" className="form-control mb-4" value={values.age} onChange={handleChange} id="age" />
-              <button className="btn btn-primary">Signup</button>
-            </form>
-          )}
-        </Formik>
-      </div>
-</div>
-
-}
+import app_config from "../../config";
+import Loading from "../main/Loading";
+import "./VideoManager.css";
+import { motion } from "framer-motion";
 
 const ManageBlog = () => {
-    const url = "http://localhost:5000"
-  const [userArray, setUserArray] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [updateFormData, setUpdateFormData] = useState(null);
+  const url = app_config.api_url;
+  const [blogArray, setBlogArray] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [blogLoading, setBlogLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("user"))
+  );
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const navigate = useNavigate();
+  const [selBlog, setSelBlog] = useState(null);
 
-  
 
-  const getDataFromBackend = () => {
-    fetch(url + "/user/getall")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        setUserArray(data)
-      })
-  }
+
+  const getDataFromBackend = async () => {
+    setLoading(true);
+    const response = await fetch(url + "/blog/getbyuserid/" + currentUser._id);
+    console.log(response.status);
+    if (response.status === 200) {
+      const data = await response.json();
+      setBlogArray(data);
+      console.log(data);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    getDataFromBackend()
-  }, [])
+    getDataFromBackend();
+  }, []);
+  
 
-  const deleteUser = async (id) => {
-    const res = await fetch(url + "/user/delete/"+id, {
-      method: "DELETE",
-    })
-
-    if(res.status === 200){
-      toast.success('Successfully deleted!')
+  const deleteBlog = async (id) => {
+    console.log(id);
+    const response = await fetch(url + "/blog/deletebyid/" + id, {
+      method: "Delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      toast.success("Blog Deleted Successfully");
       getDataFromBackend();
     }
-  }
+  };
 
-  const displayUsers = () => {
-    return (
-      <table className="table align-middle mb-0 bg-white">
-        <thead className="bg-light">
-          <tr>
-            <th>Name</th>
-            <th>Password</th>
-            
-            <th colSpan={2}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          { userArray.map( ({_id, username, email, password}) => (
-            <tr key={_id}>
-            <td>
-              <div className="d-flex align-items-center">
-                <img
-                  src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                  alt=""
-                  style={{ width: 45, height: 45 }}
-                  className="rounded-circle"
-                />
-                <div className="ms-3">
-                  <p className="fw-bold mb-1">{username}</p>
-                  <p className="text-muted mb-0">{email}</p>
-                  <p className="text-muted mb-0">{_id}</p>
-                </div>
+  const displayBlog = () => {
+    if (!loading) {
+      return blogArray.map(({ _id, title, description, thumbnail }, index) => (
+        <div className="col-md-3 mt-4" key={_id}>
+            <div
+              className="thumb-small"
+              style={{ backgroundImage: `url('${thumbnail ?url + "/" + thumbnail: 'blog-placeholder.png'}')` }}
+            >
+              <div className="p-3 thumb-options">
+                {/* <h5 className="card-title">{title}</h5>
+              <p className="text-muted">{description}</p> */}
+                <Link to={"/user/viewvideo/" + _id}>
+                  <button className="btn btn-primary btn-floating">
+                    <i class="fas fa-eye "></i>
+                  </button>
+                </Link>
+                &nbsp;&nbsp;&nbsp;
+                <button
+                  className="btn btn-danger btn-floating"
+                  onClick={(e) => deleteBlog(_id)}
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                
               </div>
-            </td>
-            
-            <td>
-              <span className="badge badge-success rounded-pill d-inline">{password}</span>
-            </td>
-            
-            <td>
-              <button type="button" className="btn btn-primary btn-sm btn-rounded" onClick={e => toggleUpdateForm({_id, username, email, password})}>
-                Edit
-              </button>
-            </td>
-            <td>
-              <button type="button" className="btn btn-danger btn-sm btn-rounded" onClick={() => {deleteUser(_id)}}>
-                Delete
-              </button>
-            </td>
-            </tr>
-          ) ) }
+
+              <p className="h3 text-muted ms-3">{title}</p>
+            </div>
           
-        </tbody>
-      </table>
-    )
-  }
-
-  
-
-  const toggleUpdateForm = (userdata) => {
-    setShowForm(true);
-    setUpdateFormData(userdata);
-  }
+        </div>
+      ));
+    } else {
+      return (
+        <div className="text-center">
+          <Loading></Loading>
+        </div>
+      );
+    }
+  };
 
   return (
-    <div>
-      <h1>Blog Manager Dashboard</h1>
-      {/* table */}
-      <div className="row">
-        <div className="col-md">{displayUsers()}</div>
-        { 
-          showForm ? 
-          <div className="col-md">
-            <UpdateUser updateFormData={updateFormData} getDataFromBackend={getDataFromBackend} />
-          </div>
-          :
-          ""
-        }
-      </div>
-    </div>
-  )
-}
-  
+    <motion.div
+      initial={{ opacity: 0, x: 300 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0.5, x: -300 }}
+      transition={{ type: "keyframes" }}
+      className="vid-manage-bg"
+    >
+      <section className="header-top">
+        {/* <i class="fas fa-paperclip header-text"></i> */}
+      <h1 className="header-text">Manage Your Blogs</h1>
+      </section>
+      <section>
+        
+        <div>
+          <h3 className="text-center mt-4">All Blogs</h3>
+        </div>
+      </section>
+      <section>
+        <div className="col-md-10 mx-auto">
+          <div className="row mt-3 mb-5">
+          <div className="col-md-3 mt-4">
+            <Link to="/user/addvideo">
+          <div className="card h-100">
+            <div className="card-body">
+              <motion.img whileHover={{ scale: 1.3 }} transition={{type: 'spring'}} style={{display: 'block', margin: 'auto', height: 150}} src="https://lordicon.com/upload/icons/2022_02/z31mkGzma.gif" alt="" />
+            </div>
+            </div>
+            </Link>
+            </div>
+            {displayBlog()}
+            </div>
+        </div>
+      </section>
+    </motion.div>
+  );
+};
 
-export default ManageBlog
+export default ManageBlog;
