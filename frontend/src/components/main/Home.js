@@ -3,7 +3,21 @@ import React from 'react'
 const Home = () => {
   return (
     <div>
-  
+  <div data-draggable="true" style={{ position: "relative" }}>
+    {/**/}
+    {/**/}
+    <section
+      draggable="false"
+      className="overflow-hidden pt-0"
+      data-v-271253ee=""
+    >
+      <section className="" style={{ paddingBottom: 1 }}>
+        {" "}
+        
+      </section>
+    </section>
+    {/**/}
+  </div>
   <div data-draggable="true" style={{ position: "relative" }}>
     {/**/}
     {/**/}

@@ -2,25 +2,30 @@ import React from 'react'
 
 const TermsOfService = () => {
   return (
-    <section>
-    <div className="mask d-flex align-items-center h-100 gradient-custom-3">
-        <div className="container h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-12 col-md-9 col-lg-7 col-xl-6">
-              <div className="card" style={{ borderRadius: 15 }}>
-                <div className="card-body p-5">
-                  <h2 className="text-uppercase text-center mb-5">
-                    Terms and conditions
-                  </h2>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  </section>
+    <div>
+    <h1>Terms and Conditions</h1>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Sed et tempor velit. Aliquam vitae congue nisi.
+      Nulla sed facilisis nisl, in condimentum sapien.
+      Sed congue neque euismod, placerat ligula eu, tempor urna.
+    </p>
+    <p>
+      Vestibulum ante ipsum primis in faucibus orci luctus
+      et ultrices posuere cubilia Curae; Nulla vitae ipsum
+      tincidunt, elementum quam eget, mollis dui.
+      Nam rutrum, ex ac ullamcorper gravida, ipsum libero iaculis magna,
+      non aliquet sapien sapien at nisl.
+    </p>
+    <p>
+      Sed venenatis velit vel velit tristique, vel blandit sapien varius.
+      Ut euismod est vel arcu tempor, id bibendum quam varius.
+      Nullam congue odio vel ipsum convallis, eget dapibus velit fringilla.
+      Integer auctor risus neque, ac hendrerit ligula lacinia vel.
+    </p>
+  </div>
 
-                  
+
 
 
 

@@ -25,12 +25,15 @@ import VideoManager from "./components/user/VideoManager";
 import Blog from "./components/blog";
 import BlogManager from "./components/blog/BlogManager";
 import ViewBlog from "./components/blog/ViewBlog";
+import TermsOfService from "./components/main/TermsOfService";
+import { AppProvider } from "./components/user/AppContext";
 import AddVideo from "./components/user/AddVideo";
 import ListBlog from "./components/blog/ListBlog";
 
 function App() {
   return (
     <div>
+       <AppProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/main/home" />} />
@@ -43,6 +46,7 @@ function App() {
 
             <Route path="contactus" element={<ContactUs />} />
             <Route path="signup" element={<Signup />} />
+            <Route path="termsofservice" element={<TermsOfService />} />
           </Route>
 
           <Route element={<Admin />} path="admin">
@@ -71,6 +75,7 @@ function App() {
 
           <Route element={<Blog />} path="blog">
             <Route
+            
               element={
                 <Authorizer>
                   <AddBlog />
@@ -95,9 +100,13 @@ function App() {
               path="viewblog/:id"
             />
             <Route element={<ListBlog></ListBlog>} path="listblog"></Route>
+            <Route element={<AddBlog></AddBlog>} path="addblog"></Route>
+            <Route element={<ViewBlog></ViewBlog>} path="viewblog"></Route>
+            <Route element={<BlogManager></BlogManager>} path="blogmanager"></Route>
           </Route>
         </Routes>
       </BrowserRouter>
+      </AppProvider>
     </div>
   );
 }
