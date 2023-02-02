@@ -14,7 +14,7 @@ const myschema = new Schema({
     },
     video: {
         type: Schema.Types.ObjectId,
-        ref: 'video'
+        ref: 'videos'
     },
 });
 

@@ -5,7 +5,9 @@ const Header = () => {
   return (
     <div>
         
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-dark" style={{
+      backgroundColor: `#01b79f`
+    }}>
       
       <div className="container">
         
@@ -24,15 +26,14 @@ const Header = () => {
         
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           
-          <a className="navbar-brand mt-2 mt-lg-0" href="#">
+        <NavLink className="navbar-brand mt-2 mt-lg-0" to="/">
             <img
-              src="logo.png"
-              height="30"
-              alt="Logo"
+              src="web-article.png"
+              height="45"
+              alt=" Logo"
               loading="lazy"
             />
-            
-          </a>
+          </NavLink>
           
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
