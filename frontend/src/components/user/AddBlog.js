@@ -82,7 +82,7 @@ const AddBlog = () => {
         //     'url("https://wallpaperaccess.com/full/4893706.jpg")',
         // }}
       >
-        <section className="header-top">
+        <section className="header-top addblog-header-bg">
       <h1 className="header-text">Create New Blog</h1>
       </section>
         <div className="container py-5">

@@ -1,23 +1,18 @@
 import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../../context/AppContext";
 import { useState } from "react";
+import app_config from "../../config";
+import { useUserContext } from "../../context/UserProvider";
 
 const Header = () => {
-  const url = "http://localhost:5000";
+  
+  const navigate = useNavigate();
+  const { loggedin, setLoggedin, logout } = useUserContext();
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
-  const { loggedIn, setloggedIn } = useContext(AppContext);
-  const navigate = useNavigate();
-  const logout = () => {
-    //destroy session value
-    sessionStorage.removeItem("user");
-    //  setloggedIn to false
-    setloggedIn(false);
-    //  navigate to login page
-    navigate("/home");
-  };
+  const url = app_config.api_url;
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark"
@@ -78,45 +73,7 @@ const Header = () => {
         </div>
 
         <div className="d-flex align-items-center">
-          <a className="text-reset me-3" href="#">
-            <i className="fas fa-shopping-cart"></i>
-          </a>
-
-          <div className="dropdown">
-            <a
-              className="text-reset me-3 dropdown-toggle hidden-arrow"
-              href="#"
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-mdb-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i className="fas fa-bell"></i>
-              <span className="badge rounded-pill badge-notification bg-danger">
-                1
-              </span>
-            </a>
-            <ul
-              className="dropdown-menu dropdown-menu-end"
-              aria-labelledby="navbarDropdownMenuLink"
-            >
-              <li>
-                <a className="dropdown-item" href="#">
-                  Some news
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Another news
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </li>
-            </ul>
-          </div>
+         
 
           <div className="dropdown">
             <a
@@ -140,32 +97,18 @@ const Header = () => {
               aria-labelledby="navbarDropdownMenuAvatar"
             >
               <li>
-                <a className="dropdown-item" href="#">
-                  My profile
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Settings
-                </a>
-              </li>
-              {/* <li>
-                <a className="dropdown-item" href="#">Logout</a>
-              </li> */}
-              {
-                // currentUser=== null?
-                !loggedIn ? (
-                  <li className="nav-item">
-                    <NavLink className="btn btn-primary" to="/main/login">
-                      Login Now
-                    </NavLink>
-                  </li>
-                ) : (
-                  <button onClick={logout} className="btn btn-danger">
+                  <NavLink className="dropdown-item" to="/user/profile">
+                    My profile
+                  </NavLink>
+                </li>
+                
+                <li>
+                  <button onClick={logout} className="dropdown-item" href="#">
                     Logout
                   </button>
-                )
-              }
+                </li>
+              
+              
             </ul>
           </div>
         </div>

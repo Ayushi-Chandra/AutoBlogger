@@ -12,12 +12,20 @@
 .header-top{
   margin: 50px;
   border-radius: 50px;
-  background-image: linear-gradient(to right, #01b79f, #00b69b00),
-  url("../public/user/blog-header.png");
   background-size: contain;
   background-position: right;
   background-repeat: no-repeat;
   padding: 100px;
+}
+
+.addvideo-header-bg{
+  background-image: linear-gradient(to right, #01b79f, #00b69b00),
+  url("../public/user/blog-header.png");
+}
+
+.addblog-header-bg{
+  background-image: linear-gradient(to right, #01b79f, #00b69b00),
+  url("../public/user/blog-header.png");
 }
 
 .header-text{
