@@ -24,7 +24,7 @@ const Header = () => {
           
           <a className="navbar-brand mt-2 mt-lg-0" href="#">
             <img
-              src="web-article.png"
+              src="/web-article.png"
               height="45"
               alt=" Logo"
               loading="lazy"

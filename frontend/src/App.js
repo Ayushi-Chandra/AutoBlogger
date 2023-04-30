@@ -26,8 +26,7 @@ import Blog from "./components/blog";
 import BlogManager from "./components/blog/BlogManager";
 import ViewBlog from "./components/blog/ViewBlog";
 import TermsOfService from "./components/main/TermsOfService";
-import { AppProvider } from "./context/AppContext";
-import AddVideo from "./components/user/AddVideo";
+import AddVideo from "./components/user/Addvideo";
 import ListBlog from "./components/blog/ListBlog";
 import UserProvider from "./context/UserProvider";
 import { useState } from "react";
@@ -73,14 +72,7 @@ function App() {
               <Route element={<Authorizer><User /></Authorizer>} path="user">
                 <Route path="profile" element={<UserProfile />} />
                 <Route path="manageblog" element={<ManageBlog />} />
-                <Route
-                  path="addblog"
-                  element={
-                    <Authorizer>
-                      <AddBlog />
-                    </Authorizer>
-                  }
-                />
+               
                 <Route path="managevideo" element={<VideoManager />} />
                 <Route path="addvideo" element={<AddVideo />} />
               </Route>
@@ -92,7 +84,7 @@ function App() {
                       <AddBlog />
                     </Authorizer>
                   }
-                  path="addblog/:videoid"
+                  path="addblog/:id"
                 />
                 <Route
                   element={

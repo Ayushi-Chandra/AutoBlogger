@@ -1,170 +1,223 @@
-import React, { useEffect, useState } from "react";
+import React, {  useEffect } from "react";
+import { Button } from "@mui/material";
 import { Formik } from "formik";
-import Swal from "sweetalert2";
-import { useNavigate, useParams } from "react-router-dom";
-import { TextField } from "@mui/material";
-import MDEditor from "@uiw/react-md-editor";
+import {  useNavigate, useParams } from "react-router-dom";
 import app_config from "../../config";
+import { useState } from "react"; 
+import toast from "react-hot-toast";
+import { SimpleMdeReact } from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
+
+
+
 
 const AddBlog = () => {
-  const navigate = useNavigate();
-  const { videoid } = useParams();
+  const {id} = useParams();
+  const url = app_config.api_url;
+  const [videoData, setVideoData] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [fieldValues, setfieldValues] = useState("")
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
-  const url = app_config.api_url;
-  const [selFile, setSelFile] = useState("");
-  const [blogData, setBlogData] = useState("");
+  const [selBlog, setSelBlog] = useState("");
+  const [blogData, setBlogData] = useState('');
+  const navigate = useNavigate();
 
-  const fetchVideoData = async () => {
-    const response = await fetch(url + "/video/getbyid/" + videoid);
-    if (response.status === 200) {
-      const data = await response.json();
-      setBlogData(data.transcription);
-    }
+  const getDatafromBackend = async () => {
+    setLoading(true);
+    const response = await fetch(url + "/video/getbyid/" + id);
+    // console.log(response.status);
+    if( response.status === 200){
+    const data = await response.json();
+    console.log(data);
+    setBlogData(data.transcription)
+    setVideoData(data);
+    setfieldValues({
+      title: data.title,
+      description: data.description,
+      text:data.transcription.text,
+      category:"",
+      createdAt:new Date(),
+    })
+    setLoading(false);
   }
+};
 
-  useEffect(() => {
-    fetchVideoData();
-  }, [])
-  
-
-  const userSubmit = async (formdata) => {
-    formdata.thumbnail = selFile;
-    console.log(formdata);
-
-    const response = await fetch(url + "/blog/add", {
-      method: "POST",
-      body: JSON.stringify(formdata), //converting javascript object to json
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (response.status === 200) {
-      response.json().then((data) => {
-        console.log(data);
-        sessionStorage.setItem("user", JSON.stringify(data));
-
-        Swal.fire({
-          icon: "success",
-          title: "Well Done👍",
-          text: "You have done a wonderful job!",
-        }).then(() => {
-          navigate("/user/manageblog");
-        });
-      });
-    } else {
-      console.log("error occured");
+const uploadBlog = (e) => {
+  const file = e.target.files[0];
+  setSelBlog(file.name);
+  const fd = new FormData();
+  fd.append("myfile", file);
+  fetch("http://localhost:5000/util/uploadfile", {
+    method: "POST",
+    body: fd,
+  }).then((res) => {
+    if (res.status === 200) {
+      toast.success("Image uploaded successfully");
+      console.log("uploaded");
     }
-  };
-  const uploadFile = (e) => {
-    const file = e.target.files[0];
-    setSelFile(file.name);
-    const fd = new FormData();
-    fd.append("myfile", file);
-    fetch(url + "/util/uploadfile", {
-      method: "POST",
-      body: fd,
-    }).then((res) => {
-      if (res.status === 200) {
-        console.log("uploaded");
-      }
-    });
-  };
-  return (
-    <div>
-      
-      <section
-        className=" bg-image"
-        // style={{
-        //   backgroundImage:
-        //     'url("https://wallpaperaccess.com/full/4893706.jpg")',
-        // }}
-      >
-        <section className="header-top addblog-header-bg">
-      <h1 className="header-text">Create New Blog</h1>
-      </section>
-        <div className="container py-5">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div
-              className="card shadow-2-strong"
-              style={{ borderRadius: "2rem" }}
-            >
-              <div className="card-body p-5 text-center">
-                <h1 className="mb-5">Upload Blog</h1>
+  });
+};
 
-                <Formik
-                  initialValues={{
-                    title: "",
-                    description: "",
+useEffect(() => {
+  getDatafromBackend()
+}, [])
 
-                    data: "",
-                    createdAt: Date,
-                  }}
-                  onSubmit={userSubmit}
-                  // validationSchema={SignupSchema}
-                >
-                  {({ values, handleChange, handleSubmit, errors }) => (
-                    <form onSubmit={handleSubmit} className="mx-1 mx-md-4">
-                      <div className="form-outline mb-4">
-                        <TextField
-                          value={values.title}
-                          onChange={handleChange}
-                          id="title"
-                          sx={{ mt: 5 }}
-                          fullWidth
-                          label="TITLE"
-                          type="text"
-                          className="form-control"
-                        />
-                      </div>
 
-                      <div className="form-outline mb-4">
-                        <TextField
-                          value={values.description}
-                          onChange={handleChange}
-                          id="description"
-                          sx={{ mt: 5 }}
-                          fullWidth
-                          label="DESCRIPTION"
-                          type="text"
-                          className="form-control"
-                        />
-                      </div>
+const BlogSubmit = async (formdata) => {
+  formdata.video = id;
+  formdata.user = currentUser._id;
+  formdata.image=selBlog;
+  formdata.data = blogData
+  const response = await fetch(url + "/blog/add", {
+    method: "POST",
+    body: JSON.stringify(formdata),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if(response.status === 200){
+    toast.success("Blog Added Successfully");
+    navigate("/blog/listblog");
+  }
+};
 
-                      <div className="form-outline mb-4">
-                        <TextField
-                          onChange={uploadFile}
-                          id="file"
-                          sx={{ mt: 5 }}
-                          fullWidth
-                          label="Thumbnail"
-                          type="file"
-                          className="form-control"
-                        />
-                      </div>
-                      <div className="form-outline mb-4">
-                        <div className="container">
-                          <MDEditor value={blogData} onChange={setBlogData} />
-                        </div>
-                      </div>
+  const DisplayBlogForm = () => {
+    if(!loading){
+    return (
+      <div>
+    <Formik
+    initialValues={fieldValues}
+    onSubmit={BlogSubmit}>
 
-                      <button
-                        className="btn btn-primary btn-lg btn-block"
-                        type="submit"
-                      >
-                        UPLOAD
-                      </button>
-                    </form>
-                  )}
-                </Formik>
-              </div>
+    {({ values, handleChange, handleSubmit }) => (
+      <form onSubmit={handleSubmit}>
+        <div className="container">
+          <div className="box">
+            <div class=" mb-4">
+              <label
+                className="form-label"
+                htmlFor="title"
+                style={{ marginLeft: "0px" }}
+              >
+                Title
+              </label>
+              <input
+                type="text"
+                id="title"
+                value={values.title}
+                onChange={handleChange}
+                class="form-control"
+                name="title"
+                required
+              />
             </div>
           </div>
+
+          <div className="box">
+            <div className="mb-4">
+              <label className="form-label" htmlFor="description">
+                Description
+              </label>
+              <input
+                type="text"
+                id="description"
+                value={values.description}
+                onChange={handleChange}
+                className="form-control"
+                name="description"
+                required
+              />
+            </div>
+          </div>
+          <div className="box">
+            <div class=" mb-4">
+              <label
+                className="form-label"
+                htmlFor="category"
+                style={{ marginLeft: "0px" }}
+              >
+                Category
+              </label>
+              <input
+                type="text"
+                id="category"
+                value={values.category}
+                onChange={handleChange}
+                class="form-control"
+                name="category"
+                required
+              />
+            </div>
+          </div>
+          <div className="box">
+            <div class="mb-4">
+              <label
+                className="form-label"
+                htmlFor="text"
+                style={{ marginLeft: "0px" }}
+              >
+                Data
+              </label>
+              <SimpleMdeReact
+                type="text"
+                id="text"
+                value={blogData}
+                onChange={handleChange}
+                class="form-control "
+                required
+                name="text">
+                </SimpleMdeReact>
+            </div>
+          </div>
+          <div className="box">
+            <div class="mb-4">
+              <label
+                className="form-label"
+                htmlFor="image"
+                style={{ marginLeft: "0px" }}
+              >
+                Image
+              </label>
+              <input
+                type="file" 
+                id="image"
+                onChange={uploadBlog}
+                class="form-control"
+                accept="image/*"
+                required
+                name="image">
+                </input>
+            </div>
+          </div>
+          <Button variant="contained" type="submit" className="sign w-100">
+             Publish
+          </Button>
         </div>
-      </section>
-    </div>
+      </form>
+    )}
+  </Formik>
+      </div>
+    );
+    }
+  };
+
+
+  return (
+      <div className="container mt-5 ">
+            <div className="card">
+              <div className="card-header">
+        <h2 className="text-center text-danger">Add Blogs</h2>
+        <p className="text-center ">Please enter the details of blogs</p>
+              </div>
+              <div className="card-body">
+            {DisplayBlogForm()}
+              </div>
+                
+        </div>
+            </div>
   );
 };
+
 export default AddBlog;

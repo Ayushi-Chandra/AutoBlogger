@@ -27,6 +27,8 @@ app.use('/video', videoRouter);
 app.use('/util', utilRouter);
 app.use('/blog', blogRouter);
 
+app.use(express.static('./static/uploads'));
+
 // creating a route or endpoint
 app.get( '/',(req,res)=>{
     res.send('Request accepted on /');

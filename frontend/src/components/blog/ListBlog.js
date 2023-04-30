@@ -44,8 +44,8 @@ function ListBlog() {
                 <div
                   className="blog-back"
                   style={{
-                    backgroundImage: blog.thumbnail
-                      ? `url("${url}/${blog.thumbnail}")`
+                    backgroundImage: blog.image
+                      ? `url("${url}/${blog.image}")`
                       : `url("blog-placeholder.png")`,
                   }}
                 ></div>

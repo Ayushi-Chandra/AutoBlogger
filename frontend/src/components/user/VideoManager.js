@@ -6,7 +6,7 @@ import app_config from "../../config";
 import Loading from "../main/Loading";
 import "./VideoManager.css";
 import { motion } from "framer-motion";
-import AddVideo from "./AddVideo";
+import AddVideo from "./Addvideo";
 
 const VideoManager = () => {
   const url = app_config.api_url;

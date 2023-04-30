@@ -1,5 +1,5 @@
 // signup form    
-const {Schema, model} = require('../connection');
+const {Schema, model, Types} = require('../connection');
 
 const myschema = new Schema({
     title:String,
@@ -8,14 +8,11 @@ const myschema = new Schema({
     text:String,
     createdAt:Date,
     image:String,
+    data: String,
     user: {
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'users'
-    },
-    video: {
-        type: Schema.Types.ObjectId,
-        ref: 'videos'
-    },
+    }
 });
 
 module.exports = model('blogs',myschema);
